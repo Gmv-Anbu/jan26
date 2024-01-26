@@ -1,0 +1,21 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "VideoComponent": "libs/VideoComponent",
+    "admin": "apps/admin",
+    "admin-e2e": "apps/admin-e2e",
+    "box": "libs/box",
+    "customer": "apps/customer",
+    "customer-e2e": "apps/customer-e2e",
+    "data-table": "libs/data-table",
+    "hedera-wallet-selector": "libs/hedera-wallet-selector",
+    "infinite-scroll": "libs/infinite-scroll",
+    "js-cookie": "libs/js-cookie",
+    "modal": "libs/modal",
+    "react-chart-2": "libs/react-chart-2",
+    "table": "libs/table",
+    "use-pagination": "libs/use-pagination",
+    "wallet-selector": "libs/wallet-selector"
+  }
+}

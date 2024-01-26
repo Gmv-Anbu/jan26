@@ -1,0 +1,37 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "noImplicitAny": false,
+    "paths": {
+      "@apps/*": ["apps/*"],
+      "@nft-marketplace/VideoComponent": ["libs/VideoComponent/src/index.ts"],
+      "@nft-marketplace/AudioComponent": ["libs/AudioComponent/src/index.ts"],
+      "@nft-marketplace/box": ["libs/box/src/index.ts"],
+      "@nft-marketplace/data-table": ["libs/data-table/src/index.ts"],
+      "@nft-marketplace/hedera-wallet-selector": [
+        "libs/hedera-wallet-selector/src/index.ts"
+      ],
+      "@nft-marketplace/infinite-scroll": ["libs/infinite-scroll/src/index.ts"],
+      "@nft-marketplace/js-cookie": ["libs/js-cookie/src/index.ts"],
+      "@nft-marketplace/modal": ["libs/modal/src/index.ts"],
+      "@nft-marketplace/react-chart-2": ["libs/react-chart-2/src/index.ts"],
+      "@nft-marketplace/table": ["libs/table/src/index.ts"],
+      "@nft-marketplace/use-pagination": ["libs/use-pagination/src/index.ts"],
+      "@nft-marketplace/wallet-selector": ["libs/wallet-selector/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

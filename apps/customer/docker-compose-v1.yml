@@ -1,0 +1,8 @@
+version: '3'
+services:
+    nftnew:
+        build: .
+        env_file:
+        - .env
+        ports:
+        - "${PORT}:3890"
