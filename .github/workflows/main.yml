@@ -1,0 +1,31 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up SSH key
+      uses: webfactory/ssh-agent@v0.5.4
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: SSH into EC2 and run commands
+      run: |
+        if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+          ssh -o StrictHostKeyChecking=no ubuntu@3.84.215.46 "cd /home/ubuntu/kll && git pull"
+        elif [ "${{ github.ref }}" = "refs/heads/develop" ]; then
+          ssh -o StrictHostKeyChecking=no ubuntu@3.84.215.46 "cd /home/ubuntu/kll && rm -r README.md"
+        else
+          echo "Unsupported branch: ${{ github.ref }}"
+          exit 1
+        fi
