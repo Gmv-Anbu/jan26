@@ -22,7 +22,7 @@ jobs:
     - name: SSH into EC2 and run commands
       run: |
         if [ "${{ github.ref }}" = "refs/heads/main" ]; then
-          ssh -o StrictHostKeyChecking=no ubuntu@3.84.215.46 "cd /home/ubuntu/kll && git pull"
+          ssh -o StrictHostKeyChecking=no ubuntu@3.84.215.46 "cd /home/ubuntu/kll && rm -r package-lock.json"
         elif [ "${{ github.ref }}" = "refs/heads/develop" ]; then
           ssh -o StrictHostKeyChecking=no ubuntu@3.84.215.46 "cd /home/ubuntu/kll && rm -r README.md"
         else
