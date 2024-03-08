@@ -1,0 +1,54 @@
+name: Multi-Path Deployment
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up SSH key
+      uses: webfactory/ssh-agent@v0.5.4
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Check for changes and deploy
+      run: |
+        case ${{ github.ref }} in
+          refs/heads/main)
+            deploy_directories=("/tools/**")
+            server_path="/home/ubuntu/FrontEnd"
+            execution_command="npm install && pm2 restart your-dev-app-name"
+            ;;
+          refs/heads/develop)
+            deploy_directories=("/tools/**")
+            server_path="/home/ubuntu/asn_qa/FrontEnd"
+            execution_command="npm install && pm2 restart your-qa-app-name"
+            ;;
+          refs/heads/asn-uat)
+            deploy_directories=("asn_uat/FrontEnd" "yet/another/path")
+            server_path="/home/ubuntu/asn_uat/FrontEnd"
+            execution_command="npm install && pm2 restart your-uat-app-name"
+            ;;
+          *)
+            echo "Unsupported branch: ${{ github.ref }}"
+            exit 1
+            ;;
+        esac
+
+        for deploy_directory in "${deploy_directories[@]}"; do
+          if git diff --quiet HEAD^ HEAD -- "${deploy_directory}" > /dev/null; then
+            echo "No changes in the '${deploy_directory}' folder. Skipping deployment."
+          else
+            echo "Changes detected in the '${deploy_directory}' folder. Proceeding with deployment..."
+            ssh -o StrictHostKeyChecking=no ubuntu@your-server-ip "cd ${server_path}/${deploy_directory} && git pull && ${execution_command}"
+          fi
+        done
